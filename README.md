@@ -1,5 +1,5 @@
 # SignalR-ASI
-SignalR Example for presentation for Akademickie Stowarzyszenie Informatyczne Lightning talk [PL]
+SignalR Example for presentation for [Akademickie Stowarzyszenie Informatyczne](https://asi.wroclaw.pl) ([GitHub Page](https://github.com/orgs/asi-pwr/)) Lightning talk [PL]
 
 
 This repository contains polish comments in the code - normally I don't write in other languages than english in my code, but as this was for a presentation purposes - well, it happened.
