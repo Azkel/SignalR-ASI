@@ -1,0 +1,31 @@
+﻿<h1>Chat</h1>>
+<form id="sendmessage">  <!-- Formularz do wysyłania wiadomości -->
+    <input type="text" id="data" />
+    <button type="button" id="send">Wyślij</button>
+</form>
+
+<ul id="messages"></ul>  <!-- Lista naszych wiadomości! -->
+@section Scripts {   <!-- Takie fajne ASP.Netowe coś, co wstrzykuje zawarty wewnątrz kod w miejsce w _Layout.cshtml gdzie jest napisane RenderSection("Scripts", required: false) -->
+    <script src="~/lib/signalr.min.js"></script>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/example")   // Zadeklarowany wcześniej w Startup.cs adres Huba
+            .build();
+
+        connection.on('SendToClient', data => {                         // Jeżeli przyjdzie z Huba metoda "SendToClient"
+            let child = document.createElement('li');                   // Stwórz nowy element listy
+            child.innerText = data;                                     // Wypełnij go otrzymanym z Huba teksem
+            document.getElementById('messages').appendChild(child);     // Doklej na koniec listy wiadomości
+            });
+
+        $('#send').on('click', function (event) {                       // Jeżeli naciśnięty zostanie przycisk "Wyślij"
+            connection.send('SendToServer', $("#data").val());          // Wyślij zawartość pola tekstowego o id "data" do metody "SendToServer" Huba
+        })
+
+        connection.start().catch(err => console.error(err.toString())); // Nawiąz połączenie z Hubem - jak coś pójdzie nie tak, wyrzuć do konsoli błąd
+
+    </script>
+}
+
+
